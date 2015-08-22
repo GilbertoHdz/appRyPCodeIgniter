@@ -42,6 +42,9 @@ $route['default_controller'] = "home";
 $route['apertura_general'] = "apergen_ci";
 $route['apertura_detalle'] = "apertdet_ci";
 $route['insignias'] = "insignias_ci";
+$route['promedio_general'] = "promgen_ci";
+$route['promedio_grupo'] = "promgrupo_ci";
+
 $route['404_override'] = '';
 
 

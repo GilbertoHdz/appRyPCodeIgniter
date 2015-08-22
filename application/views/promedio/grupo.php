@@ -1,0 +1,1 @@
+<h3><?php print($sub_title) ?></h3>

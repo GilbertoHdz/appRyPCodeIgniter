@@ -49,7 +49,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php base_url() ?>home">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="<?php base_url() ?>lista">Lista</a></li>
         <li><a href="<?php base_url() ?>insignias">Insignias</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apertura <span class="caret"></span></a>
@@ -57,6 +56,14 @@
             <li><a href="<?php base_url() ?>apertura_general">General</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<?php base_url() ?>apertura_detalle">Detalle</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Promedio <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php base_url() ?>promedio_general">General</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="<?php base_url() ?>promedio_grupo">Grupo</a></li>
           </ul>
         </li>
       </ul>
