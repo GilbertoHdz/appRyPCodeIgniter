@@ -13,9 +13,11 @@ class Home extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	public function xmlHome()
+	public function get_ajax()
 	{
-		echo $this->personal_model->getUsuarios()->result();
+		$this->load->model('promedio_model');
+		$result = $this->promedio_model->getCursos()->result();
+		echo json_encode($result);
 	}
 
 	public function csv()

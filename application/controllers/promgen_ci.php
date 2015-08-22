@@ -14,19 +14,26 @@ class Promgen_ci extends CI_Controller {
 		$data = array('title' => 'Promedio', 'sub_title' => 'Promedio General');
 		$this->load->view('templates/header', $data);
 
-		//$general = $this->apertura_model->getAperturaGeneral()->result();
-		//$data['general'] = $general;
-		$this->load->view('promedio/general');
+		$cursos = $this->promedio_model->getCursos()->result();
+		$data['cursos'] = $cursos;
+		$this->load->view('promedio/general', $data);
 
 		$this->load->view('templates/footer');
 	}
 
+	public function get_itemcursos($item)
+	{
+
+		//$item = $_POST['termino'];
+		
+		$result = $this->promedio_model->getItemsPorCursos($item)->result();
+		echo json_encode($result);
+	}
+
 	public function get_ajax()
 	{
-		$this->load->helper('form');
-
-		$data['cursos'] = $this->promedio_model->getCursos();
-
+		$result = $this->promedio_model->getCursos()->result();
+		echo json_encode($result);
 	}
 
 }

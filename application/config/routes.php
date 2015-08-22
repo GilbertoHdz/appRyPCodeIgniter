@@ -43,6 +43,7 @@ $route['apertura_general'] = "apergen_ci";
 $route['apertura_detalle'] = "apertdet_ci";
 $route['insignias'] = "insignias_ci";
 $route['promedio_general'] = "promgen_ci";
+$route['promedio_general/GetItemCursos/(:num)'] = "promgen_ci/get_itemcursos/$1";
 $route['promedio_grupo'] = "promgrupo_ci";
 
 $route['404_override'] = '';

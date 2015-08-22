@@ -10,6 +10,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="<?php base_url() ?>vendor/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php base_url() ?>vendor/css/jquery-ui.css">
         
         <style>
             body {
@@ -26,6 +27,8 @@
         <script src="<?php base_url() ?>vendor/js/vendor/bootstrap.min.js"></script>
         <script src="<?php base_url() ?>vendor/js/vendor/FileSaver.js"></script>
         <script src="<?php base_url() ?>vendor/js/vendor/Blob.js"></script>
+        <script src="<?php base_url() ?>vendor/js/vendor/jquery-ui-1.11.4.js"></script>
+        <script src="<?php base_url() ?>vendor/js/vendor/jquery.multiselect.js"></script>
         <script src="<?php base_url() ?>vendor/js/main.js"></script>
         
     </head>
