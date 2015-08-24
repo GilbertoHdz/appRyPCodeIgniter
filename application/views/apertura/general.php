@@ -19,6 +19,7 @@
             <table id="tbAperturaGeneral" style="width: 950px" class="tg">
                 <thead>
                     <tr>
+                        <th style="width: 80px;" class="tg-ld5c" >Cantidad</th>
                         <th style="width: 150px;" class="tg-ld5c" >Estado</th>
                         <th style="width: 200px;" class="tg-ld5c" >GrupoApertura</th>
                         <th style="width: 200px;" class="tg-ld5c" >Ctro. Trabajo</th>
@@ -34,6 +35,7 @@
                             } $c += 1;
                         ?>
                         <tr style='<?php echo $bgc ?>'>
+                            <td ><?php print($fila->Cantidad) ?></td>
                             <td ><?php print($fila->Estado) ?></td>
                             <td ><?php print($fila->GrupoApertura) ?></td>
                             <td ><?php print($fila->CtroTrabajo) ?></td>
