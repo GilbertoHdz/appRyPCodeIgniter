@@ -11,26 +11,63 @@
 		});
 	});
 
-	function ejecutar_ajax () {
-		$.ajax({
-            url: "<?php echo site_url('home/get_ajax')?>",
-            dataType: "json",
-            success: function (data) {
-            	console.log(data);
-            }
+    function getItemsCombo() {
+        var ids_items = $(':checkbox:checked').map(function () { return this.value.split('_')[2]; }).get().join(',');
+            //console.log(ids_items);
+        getPromedioGeneral(ids_items);
+    }
+
+	function getPromedioGeneral(items) {
+        if (items != "") {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo site_url('promedio_general/GetPromedioGeneral')?>",
+                data: {termino: items},
+                dataType: "json",
+                success: function (data) {
+                    llenarBody(data);
+                }
+            });
+        };
+    }
+
+    function llenarBody (argument) {
+        var table = $("[id$=tbPromedioGeneral] tbody");
+        $.each(argument, function (idx, data) {
+            var bgc = "<tr style='background-color: #f1f1f1;' >";
+            if (idx % 2 == 0) { 
+                console.log('Par');
+                bgc = "<tr>"; 
+            }else{
+
+            };
+
+            var content =   bgc.toString() + 
+                                "<td>" + data.Usuario + "</td>" + 
+                                "<td>" + data.Contrasenia + "</td>" + 
+                                "<td>" + data.Convenio + "</td>" + 
+                                "<td>" + data.NombComp + "</td>" + 
+                                "<td>" + data.CorreoE + "</td>" + 
+                                "<td>" + data.phone1 + "</td>" + 
+                                "<td>" + data.phone2 + "</td>" + 
+                                "<td>" + data.Estado + "</td>" + 
+                                "<td>" + data.ClvCentroTrabajo + "</td>" +
+                                "<td>" + data.CentroTrabajo + "</td>" +
+                                "<td>" + data.NvlCentroTrabajo + "</td>" +
+                                "<td>" + data.DiasSinIngresar + "</td>" +
+                                "<td>" + data.IngresoPlataforma + "</td>" +
+                                "<td>" + data.EstPago + "</td>" +
+                                "<td>" + data.Grupo + "</td>" +
+                                "<td>" + data.Diplomado + "</td>" +
+                                "<td>" + data.avance + "</td>" +
+                                "<td>" + data.calificacion + "</td>" +
+                                "<td>" + data.EstadoAcademico +"</td>" +
+                                "<td>" + data.GrupoApertura + "</td>" +
+                                "<td>" + data.FechaApertura + "</td>" +
+                           "</tr>";
+            table.append(content);
         });
-	}
-
-	function getItem() {
-    $.ajax({
-        url: "<?php echo site_url('promedio_general/GetItemCursos/14')?>",
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-        }
-    });
-
-}
+    }
 
 </script>
 
@@ -42,6 +79,9 @@
 
   <button class="btn btn-danger btn-xs" onclick="exportarCSV('tbPromedioGeneral', 'PromedioGeneral')">
     <span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>Exportar CVS
+  </button>
+  <button class="btn btn-info btn-xs" onclick="getItemsCombo();">
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Consultar
   </button>
 
 <br><br>
@@ -90,7 +130,7 @@
 
     <div class="PromedioGeneral" style="position: relative; overflow: auto; max-height: 60vh;">
 
-        <table id="tbPromedioGeneral" style="width: 950px" class="tg">
+        <table id="tbPromedioGeneral" style="width: 3250px" class="tg">
             <thead>
                 <tr>
                     <th style="width: 100px;" class="tg-ld5c">Usuario</th>
@@ -102,53 +142,21 @@
                     <th style="width: 100px;" class="tg-ld5c">phone2</th>
                     <th style="width: 150px;" class="tg-ld5c">Estado</th>
                     <th style="width: 150px;" class="tg-ld5c">ClvCentroTrabajo</th>
-                    <th style="width: 80px;" class="tg-ld5c">CentroTrabajo</th>
+                    <th style="width: 200px;" class="tg-ld5c">CentroTrabajo</th>
                     <th style="width: 250px;" class="tg-ld5c">NvlCentroTrabajo</th>
                     <th style="width: 80px;" class="tg-ld5c">DiasSinIngresar</th>
                     <th style="width: 80px;" class="tg-ld5c">IngresoPlataforma</th>
                     <th style="width: 80px;" class="tg-ld5c">EstPago</th>
                     <th style="width: 100px;" class="tg-ld5c">Grupo</th>
                     <th style="width: 550px;" class="tg-ld5c">Diplomado</th>
+                    <th style="width: 80px;" class="tg-ld5c">Avance</th>
+                    <th style="width: 80px;" class="tg-ld5c">Calificacion</th>
+                    <th style="width: 10px;" class="tg-ld5c">EstadoAcedemico</th>
                     <th style="width: 150px;" class="tg-ld5c">GrupoApertura</th>
                     <th style="width: 100px;" class="tg-ld5c">FechaApertura</th>
-                    <th style="width: 80px;" class="tg-ld5c">calificacion</th>
-                    <th style="width: 80px;" class="tg-ld5c">avance</th>
-                    <th style="width: 10px;" class="tg-ld5c">EstadoAcedemico</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (isset($general)) {
-                  $c=1;
-                  foreach ($general as $fila):
-                    $bgc='';
-                    if ($c%2==0) {
-                          $bgc= 'background-color: #f1f1f1;';
-                        } $c += 1;
-                    ?>
-                    <tr style='<?php echo $bgc ?>'>
-                        <td><?php print($fila->Usuario) ?></td>
-                        <td><?php print($fila->Contrasenia) ?></td>
-                        <td><?php print($fila->Convenio) ?></td>
-                        <td><?php print($fila->NombComp) ?></td>
-                        <td><?php print($fila->CorreoE) ?></td>
-                        <td><?php print($fila->phone1) ?></td>
-                        <td><?php print($fila->phone2) ?></td>
-                        <td><?php print($fila->Estado) ?></td>
-                        <td><?php print($fila->ClvCentroTrabajo) ?></td>
-                        <td><?php print($fila->CentroTrabajo) ?></td>
-                        <td><?php print($fila->NvlCentroTrabajo) ?></td>
-                        <td><?php print($fila->DiasSinIngresar) ?></td>
-                        <td><?php print($fila->IngresoPlataforma) ?></td>
-                        <td><?php print($fila->EstPago) ?></td>
-                        <td><?php print($fila->Grupo) ?></td>
-                        <td><?php print($fila->Diplomado) ?></td>
-                        <td><?php print($fila->GrupoApertura) ?></td>
-                        <td><?php print($fila->FechaApertura) ?></td>
-                        <td><?php print($fila->calificacion) ?></td>
-                        <td><?php print($fila->avance) ?></td>
-                        <td><?php print($fila->EstadoAcademico) ?></td>
-                    </tr>
-                <?php endforeach; }; ?>
             </tbody>
         </table>
 

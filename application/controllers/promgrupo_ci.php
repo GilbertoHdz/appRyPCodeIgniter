@@ -14,11 +14,27 @@ class Promgrupo_ci extends CI_Controller {
 		$data = array('title' => 'Promedio', 'sub_title' => 'Promedio Grupo');
 		$this->load->view('templates/header', $data);
 
-		//$general = $this->apertura_model->getAperturaGeneral()->result();
-		//$data['general'] = $general;
-		$this->load->view('promedio/grupo');
+		$cursos = $this->promedio_model->getCursos()->result();
+
+		$data = array('cursos' => $cursos);
+		$this->load->view('promedio/grupo', $data);
 
 		$this->load->view('templates/footer');
+	}
+
+	public function get_itemcursos($item)
+	{
+		//$item = $_POST['termino'];
+		
+		$result = $this->promedio_model->getItemsPorCursos($item)->result();
+		echo json_encode($result);
+	}
+
+	public function getPromedioGeneral()
+	{
+		$item = $_POST['termino'];
+		$result = $this->promedio_model->getPromedio($item)->result();
+		echo json_encode($result);
 	}
 
 	

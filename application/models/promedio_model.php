@@ -20,7 +20,7 @@ class Promedio_model extends CI_Model {
 	}
 
 
-	public function getPromedio()
+	public function getPromedio($item)
 	{
 		$query = "
 					SELECT VAD.Usuario, VAD.Contrasenia, VAD.Convenio, VAD.NombComp
@@ -40,7 +40,7 @@ class Promedio_model extends CI_Model {
 			FROM v_alumno_detalle VAD
 			LEFT JOIN v_alumno_avance VAA ON (VAA.userid = VAD.userid)
 			INNER JOIN mdl_user_info_data ID ON (ID.userid = VAD.userid AND ID.fieldid = 1)
-			WHERE VAA.itemid IN (84,85,86,91,92,95,96,126,129,130,131,132,137,138,142,189,190,203,204,205,206,207)
+			WHERE VAA.itemid IN (" . $item . ")
 			GROUP BY VAD.userid, VAA.courseid, VAD.DiasSinIngresar, VAD.Grupo
 				, VAD.Diplomado, VAD.FechaApertura
 			";

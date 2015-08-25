@@ -15,10 +15,8 @@ class Promgen_ci extends CI_Controller {
 		$this->load->view('templates/header', $data);
 
 		$cursos = $this->promedio_model->getCursos()->result();
-		$general = $this->promedio_model->getPromedio()->result();
 
-		$data = array('cursos' => $cursos, 
-					  'general' => $general);
+		$data = array('cursos' => $cursos);
 		$this->load->view('promedio/general', $data);
 
 		$this->load->view('templates/footer');
@@ -34,7 +32,8 @@ class Promgen_ci extends CI_Controller {
 
 	public function getPromedioGeneral()
 	{
-		$result = $this->promedio_model->getPromedio()->result();
+		$item = $_POST['termino'];
+		$result = $this->promedio_model->getPromedio($item)->result();
 		echo json_encode($result);
 	}
 

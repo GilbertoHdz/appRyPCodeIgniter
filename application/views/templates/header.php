@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="<?php base_url() ?>vendor/css/main.css">
         
         <script src="<?php base_url() ?>vendor/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-        <script src="<?php base_url() ?>vendor/js/vendor/jquery-1.11.2.min.js"></script>
+        <script src="<?php base_url() ?>vendor/js/vendor/jquery.js"></script>
         <script src="<?php base_url() ?>vendor/js/vendor/bootstrap.min.js"></script>
         <script src="<?php base_url() ?>vendor/js/vendor/FileSaver.js"></script>
         <script src="<?php base_url() ?>vendor/js/vendor/Blob.js"></script>
@@ -51,7 +51,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<?php base_url() ?>home">Home <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="<?php base_url() ?>home">Home<span class="sr-only">(current)</span></a></li>
         <li><a href="<?php base_url() ?>insignias">Insignias</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apertura <span class="caret"></span></a>
@@ -67,6 +67,14 @@
             <li><a href="<?php base_url() ?>promedio_general">General</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<?php base_url() ?>promedio_grupo">Grupo</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Promedio <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php base_url() ?>ejecutivo_general">General</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="<?php base_url() ?>ejecutivo_detalle">Detalle</a></li>
           </ul>
         </li>
       </ul>

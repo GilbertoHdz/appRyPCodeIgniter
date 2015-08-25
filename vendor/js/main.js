@@ -8,19 +8,6 @@ $(function() {
 });
 
 
-
-
-
-
-function obtenerDatos() {
-        $('[id$=hdnDataFiltro]').val($(':checkbox:checked').map(function () { return this.value; }).get().join(','));
-}
-
-function jsonSgrid() {
-    $('[id$=hdnJsonSgrid]').val(JSON.stringify(sgrid.getData()));
-}
-
-
 //Ajax
 function getItems(ids) {
     var nombre = ids.split(' ')[0] + ids.split(' ')[1];
@@ -39,7 +26,7 @@ function agregarSubCombo(ids, nombre, data) {
     var combo = $("<select></select>").attr("id", nombre).attr("name", nombre).attr("class", 'ddlMultiple').css("width", "225");
 
     $(data).each(function () {
-        combo.append($("<option>").attr('value', ids.split('_')[0] + '_' + this.id_curso + '_' + this.itemid + '_' + this.valoracion).text(this.itemname));
+        combo.append($("<option>").attr('value', ids.split('_')[0] + '_' + this.id_curso + '_' + this.itemid).text(this.itemname));
     });
 
     $("#" + ids.split(" ")[1] + "").append(combo);

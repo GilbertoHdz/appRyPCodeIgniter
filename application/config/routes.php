@@ -42,9 +42,17 @@ $route['default_controller'] = "home";
 $route['apertura_general'] = "apergen_ci";
 $route['apertura_detalle'] = "apertdet_ci";
 $route['insignias'] = "insignias_ci";
+
 $route['promedio_general'] = "promgen_ci";
 $route['promedio_general/GetItemCursos/(:num)'] = "promgen_ci/get_itemcursos/$1";
+$route['promedio_general/GetPromedioGeneral'] = "promgen_ci/getPromedioGeneral";
+
 $route['promedio_grupo'] = "promgrupo_ci";
+$route['promedio_grupo/GetPromedioGeneral'] = "promgrupo_ci/getPromedioGeneral";
+
+$route['ejecutivo_general'] = "ejegen_ci";
+$route['ejecutivo_detalle'] = "ejedet_ci";
+
 
 $route['404_override'] = '';
 
