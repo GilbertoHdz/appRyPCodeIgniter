@@ -11,6 +11,10 @@ class Promgrupo_ci extends CI_Controller {
 
 	public function index()
 	{
+		if (! $this->session->userdata('objSession')) {
+			redirect('login');
+		}
+		
 		$data = array('title' => 'Promedio', 'sub_title' => 'Promedio Grupo');
 		$this->load->view('templates/header', $data);
 

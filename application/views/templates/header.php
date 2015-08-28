@@ -70,7 +70,7 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Promedio <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ejecutivo<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="<?php base_url() ?>ejecutivo_general">General</a></li>
             <li role="separator" class="divider"></li>
@@ -78,7 +78,26 @@
           </ul>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <?php $user = $this->session->userdata('objSession'); 
+              if ($user) { ?>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+             aria-expanded="false">Hola - <?php echo element('nombre', $user); ?> <span class="caret"></span></a>
+          
+          <ul class="dropdown-menu">
+            <?php if (element('tipo', $user) == 'admin') { ?>
+              <li><a href="<?php base_url() ?>admin">Admin</a></li>
+              <li role="separator" class="divider"></li>
+            <?php } ?>
+            <li><a href="<?php base_url() ?>login/logout">Salir</a></li>
+          </ul>
+
+        </li>
+        <?php } ?>
       </ul>
+
     </div><!-- /.navbar-collapse -->
 
   </div><!-- /.container-fluid -->

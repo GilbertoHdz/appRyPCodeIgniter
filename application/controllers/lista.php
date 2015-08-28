@@ -11,6 +11,10 @@ class Lista extends CI_Controller {
 
 	public function index()
 	{
+		if (! $this->session->userdata('objSession')) {
+			redirect('login');
+		}
+		
 		$data = array('title' => 'Lista');
 		$this->load->view('templates/header', $data);
 		

@@ -12,6 +12,9 @@ class Apertdet_ci extends CI_Controller {
 
 	public function index()
 	{
+		if (! $this->session->userdata('objSession')) {
+			redirect('login');
+		}
 
 		$data = array('title' => 'Apertura', 'sub_title' => 'Apertuda Detalle');
 		$this->load->view('templates/header', $data);
