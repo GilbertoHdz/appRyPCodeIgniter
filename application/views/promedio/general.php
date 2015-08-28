@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 	$( document ).ready(function() {
-	    console.log( "ready!" );
+	    //console.log( "ready!" );
 	    //ejecutar_ajax();
 	    $('[id$=ddlCursos]').change(function () {
 		    var result = $(this).val();

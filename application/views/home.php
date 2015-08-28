@@ -28,9 +28,5 @@
 </script>
 
 <h3><?php print($title) ?> - View</h3>
-<br>
-<h3><?php print($user) ?> - View</h3>
-<br>
-<h3><?php print($title) ?> - View</h3>
 
 <!-- <button onclick="ejecutar_ajax();"> CLick</button> -->

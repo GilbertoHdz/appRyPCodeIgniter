@@ -42,9 +42,13 @@ $route['default_controller'] = "login_ci";
 $route['login'] = "login_ci";
 $route['login/logout'] = "login_ci/logout";
 
-$route['admin'] = "usuario_ci";
-
 $route['inicio'] = "home";
+
+$route['admin'] = "usuario_ci";
+$route['admin/agregar']    = "usuario_ci/mult_user";
+$route['admin/eliminar']   = "usuario_ci/delete_user";
+
+
 $route['apertura_general'] = "apergen_ci";
 $route['apertura_detalle'] = "apertdet_ci";
 $route['insignias'] = "insignias_ci";

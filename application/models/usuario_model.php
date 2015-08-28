@@ -35,19 +35,18 @@ class Usuario_model extends CI_Model {
 	}
  
 	//editar usuarios
-	public function edit_user($id,$nombre,$email)
+	public function edit_user($id, $obj)
 	{
  
 		$data = array(
-			'nombre'	=>		$obj,
-			'apellidos'	=>		$obj,
-			'email'		=>		$obj,
-			'password'	=>		$obj,
-			'username'	=>		$obj,
-			'tipo'		=>		$obj
+			'nombre'	=>		element('Nomb', $obj),
+			'apellidos'	=>		element('Ape', $obj),
+			'password'	=>		element('Con', $obj),
+			'username'	=>		element('Usu', $obj),
+			'tipo'		=>		element('Tip', $obj)
 		);
  
-		$this->db->where('id',$id);
+		$this->db->where('id', $id);
 		$this->db->update('usuarios',$data);
  
 	}
@@ -59,14 +58,13 @@ class Usuario_model extends CI_Model {
 		//(id_usuarios, nombre, apellidos, email, password, username, tipo)
 
 		$data = array(
-			'nombre'	=>		$obj,
-			'apellidos'	=>		$obj,
-			'email'		=>		$obj,
-			'password'	=>		$obj,
-			'username'	=>		$obj,
-			'tipo'		=>		$obj
+			'nombre'	=>		element('Nomb', $obj),
+			'apellidos'	=>		element('Ape', $obj),
+			'password'	=>		element('Con', $obj),
+			'username'	=>		element('Usu', $obj),
+			'tipo'		=>		element('Tip', $obj)
 		);
-		
+
 		$this->db->insert('usuarios',$data);
 	}
 
