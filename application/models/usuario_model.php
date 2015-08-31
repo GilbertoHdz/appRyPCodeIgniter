@@ -26,12 +26,19 @@ class Usuario_model extends CI_Model {
 			return $query->result();
 		}
 	}
+
+	//obtener usuario
+	public function get_user($id)
+	{
+		$result = $this->db->query("SELECT * FROM usuarios WHERE id_usuarios = '" . $id . "' LIMIT 1");
+		return $result->row();
+	}
  
 	//eliminar usuarios
 	public function delete_user($id)
 	{
-		$this->db->where('id',$id);
-		return $this->db->delete('usuarios');
+		$this->db->where('id_usuarios', $id);
+		$this->db->delete('usuarios');
 	}
  
 	//editar usuarios
@@ -41,12 +48,12 @@ class Usuario_model extends CI_Model {
 		$data = array(
 			'nombre'	=>		element('Nomb', $obj),
 			'apellidos'	=>		element('Ape', $obj),
-			'password'	=>		element('Con', $obj),
+			'password'	=>		md5(element('Con', $obj)),
 			'username'	=>		element('Usu', $obj),
 			'tipo'		=>		element('Tip', $obj)
 		);
  
-		$this->db->where('id', $id);
+		$this->db->where('id_usuarios', $id);
 		$this->db->update('usuarios',$data);
  
 	}
@@ -60,7 +67,7 @@ class Usuario_model extends CI_Model {
 		$data = array(
 			'nombre'	=>		element('Nomb', $obj),
 			'apellidos'	=>		element('Ape', $obj),
-			'password'	=>		element('Con', $obj),
+			'password'	=>		md5(element('Con', $obj)),
 			'username'	=>		element('Usu', $obj),
 			'tipo'		=>		element('Tip', $obj)
 		);

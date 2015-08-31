@@ -131,6 +131,7 @@ function eliminarParametroTabla(idEliminar, id_contenedor, id_tabla, id_ocultoId
 
 
 window.exportarCSV = function (tbName, docName) {
+    $('[id$=btnExportar]').button('loading');
     var BOM = "\uFEFF";
     
     // Encabezado
@@ -152,4 +153,5 @@ window.exportarCSV = function (tbName, docName) {
 
     var date = '_' + new Date().toLocaleDateString() + '_' + new Date().toLocaleTimeString();
     saveAs(blob, docName + date + ".csv");
+    $('[id$=btnExportar]').button('reset');
 };

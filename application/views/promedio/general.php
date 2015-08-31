@@ -19,12 +19,16 @@
 
 	function getPromedioGeneral(items) {
         if (items != "") {
+            $('#loadingText').removeClass("hide");
+            $('#btnConsultar').button('loading');
             $.ajax({
                 type: 'POST',
                 url: "<?php echo site_url('promedio_general/GetPromedioGeneral')?>",
                 data: {termino: items},
                 dataType: "json",
                 success: function (data) {
+                    $('#loadingText').addClass("hide");
+                    $('#btnConsultar').button('reset');
                     llenarBody(data);
                 }
             });
@@ -36,7 +40,7 @@
         $.each(argument, function (idx, data) {
             var bgc = "<tr style='background-color: #f1f1f1;' >";
             if (idx % 2 == 0) { 
-                console.log('Par');
+                //console.log('Par');
                 bgc = "<tr>"; 
             }else{
 
@@ -77,16 +81,14 @@
 
 <div class="dataTables_wrapper no-footer">
 
-  <button class="btn btn-danger btn-xs" onclick="exportarCSV('tbPromedioGeneral', 'PromedioGeneral')">
+  <button id="btnExportar" data-loading-text="Loading..." class="btn btn-danger btn-xs" onclick="exportarCSV('tbPromedioGeneral', 'PromedioGeneral')">
     <span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>Exportar CVS
   </button>
-  <button class="btn btn-info btn-xs" onclick="getItemsCombo();">
+  <button id="btnConsultar" data-loading-text="Loading..." class="btn btn-info btn-xs" onclick="getItemsCombo();">
     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Consultar
   </button>
 
 <br><br>
-
-	
 
 <table>
     <tr>
@@ -163,3 +165,21 @@
     </div>
 
 </div>
+
+
+
+<div id="loadingText" class="align: center; hide">
+    <div id="spinningTextG">
+        <div id="spinningTextG_1" class="spinningTextG">L</div>
+        <div id="spinningTextG_2" class="spinningTextG">o</div>
+        <div id="spinningTextG_3" class="spinningTextG">a</div>
+        <div id="spinningTextG_4" class="spinningTextG">d</div>
+        <div id="spinningTextG_5" class="spinningTextG">i</div>
+        <div id="spinningTextG_6" class="spinningTextG">n</div>
+        <div id="spinningTextG_7" class="spinningTextG">g</div>
+        <div id="spinningTextG_8" class="spinningTextG">.</div>
+        <div id="spinningTextG_9" class="spinningTextG">.</div>
+        <div id="spinningTextG_10" class="spinningTextG">.</div>
+    </div>
+</div>
+

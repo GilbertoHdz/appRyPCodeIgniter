@@ -13,6 +13,15 @@ class Usuario_ci extends CI_Controller {
 	public function index()
 	{
 
+		if (! $this->session->userdata('objSession')) {
+			redirect('login');
+		}
+
+		$user = $this->session->userdata('objSession');
+		if (element('tipo', $user) != 'admin') {
+			redirect('home');
+		}
+
 		$data = array('title' => 'Admin');
 		$this->load->view('templates/header', $data);
 
@@ -22,6 +31,14 @@ class Usuario_ci extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function getUsuario()
+	{
+		$id = $_POST['id'];
+		if (isset($id)) {
+			$item = $this->usuario_model->get_user($id);
+			echo json_encode($item);
+		}
+	}
 
 	public function mult_user()
 	{
@@ -37,19 +54,12 @@ class Usuario_ci extends CI_Controller {
  
  
  	//función para eliminar usuarios
-    public function delete_user()
+    public function eliminar_user()
     {
-        
-        //comprobamos si es una petición ajax y existe la variable post id
-        if($this->input->is_ajax_request() && $this->input->post('id'))
-        {
- 
-        	$id = $this->input->post('id');
- 
-			$this->usuario_model->delete_user($id);
- 
+    	$id = $_POST['id'];
+        if(isset($id)){
+        	$this->usuario_model->delete_user($id);
         }
- 
     }
 }
 

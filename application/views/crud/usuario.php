@@ -1,48 +1,79 @@
 
 <script type="text/javascript">
 
-$(document).ready(function() { } );
+  var id_usuario;
     
-    function Agregar() {
+  function agregar() {
 
-        var items = getObj();
+      var items = getObj();
 
-        if (items != "") {
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo site_url('admin/agregar')?>",
-                data: {termino: items},
-                success: function (data) {
-                    //location.reload();
-                    console.log(data);
-                }
-            });
-        };
+      if (items != "") {
+          $.ajax({
+              type: 'POST',
+              url: "<?php echo site_url('admin/agregar')?>",
+              data: {id: id_usuario, termino: items},
+              success: function () {
+                limpiarObj(false);
+                location.reload();
+                //console.log('Exito al guardar');
+              }
+          });
+      };
 
-    }
+  }
 
-    function eliminar(arg) {
+  function eliminar(arg) {
+    if (arg == 1) {
+      alert("No puede ser eliminado");
+      return false;
+    };
 
-        var cf = confirm("Desea eliminar? \n Precione Aceptar o Cancelar.");
+    var cf = confirm("Desea eliminar? \n Precione Aceptar o Cancelar.");
+    if (cf) {
 
-        if (cf) {
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo site_url('admin/eliminar')?>",
-                data: {id: arg},
-                dataType: "json",
-                success: function (data) {
-                    llenarBody(data);
-                }
-            });
-        };
-    }
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo site_url('admin/eliminar')?>",
+            data: {id: arg},
+            success: function () {
+              limpiarObj(false);
+              location.reload();
+              //console.log('Exito al Eliminar');
+            }
+        });
 
-    function getObj() {
-        var arrObj = [];
-        return arrObj = {'Nomb':txtNombre.value, 'Ape':txtApellidos.value, 'Usu':txtUsuario.value,
-                          'Con':txtContraseña.value, 'Tip':ddlTipo.value };
-    }
+    };
+  }
+
+  function editar(arg) {
+    $.ajax({
+          type: 'POST',
+          url: "<?php echo site_url('admin/usuario')?>",
+          data: {id: arg},
+          dataType: "json",
+              success: function (data) {
+                  console.log(data);
+                  limpiarObj(data);
+                  $('[id$=btnModal]').click();
+
+              }
+      });
+  }
+
+  function getObj() {
+      var arrObj = [];
+      return arrObj = {'Nomb':txtNombre.value, 'Ape':txtApellidos.value, 'Usu':txtUsuario.value,
+                        'Con':txtContraseña.value, 'Tip':ddlTipo.value };
+  }
+
+  function limpiarObj(data) {
+    id_usuario = data ? data.id_usuarios : "" ;
+    txtNombre.value = data ? data.nombre : "" ;
+    txtApellidos.value= data ? data.apellidos : "" ;
+    txtUsuario.value= data ? data.username : "" ;
+    txtContraseña.value= data ? data.password : "" ;
+    ddlTipo.value= data ? data.tipo : -1 ;
+  }
 
 
 
@@ -50,7 +81,7 @@ $(document).ready(function() { } );
 
 <br><br>
 
-<button class="btn btn-success btn-xs" onclick="openModal()" data-toggle="modal" data-target="#myModal">
+<button id="btnModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Agregar Usuario
 </button>
 
@@ -85,7 +116,7 @@ $(document).ready(function() { } );
                 <td><?php print($fila->password) ?></td>
                 <td><?php print($fila->tipo) ?></td>
                 <td>
-                    <button class="btn btn-warning btn-xs" onclick="openModal(<?php print($fila->id_usuarios) ?>)">
+                    <button class="btn btn-warning btn-xs" onclick="editar(<?php print($fila->id_usuarios) ?>)">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 
                     </button>
                 </td>
@@ -159,7 +190,7 @@ $(document).ready(function() { } );
         </form>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-              <button class="btn btn-success" onclick="Agregar();">Guardar</button>
+              <button class="btn btn-success" onclick="agregar();">Guardar</button>
             </div>
           </div>
 

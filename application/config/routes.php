@@ -46,7 +46,8 @@ $route['inicio'] = "home";
 
 $route['admin'] = "usuario_ci";
 $route['admin/agregar']    = "usuario_ci/mult_user";
-$route['admin/eliminar']   = "usuario_ci/delete_user";
+$route['admin/usuario']    = "usuario_ci/getUsuario";
+$route['admin/eliminar']   = "usuario_ci/eliminar_user";
 
 
 $route['apertura_general'] = "apergen_ci";
