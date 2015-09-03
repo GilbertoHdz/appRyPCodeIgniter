@@ -36,6 +36,7 @@
     }
 
     function llenarBody (argument) {
+        var table = $("[id$=tbPromedioGeneral] tbody tr").remove();
         var table = $("[id$=tbPromedioGeneral] tbody");
         $.each(argument, function (idx, data) {
             var bgc = "<tr style='background-color: #f1f1f1;' >";

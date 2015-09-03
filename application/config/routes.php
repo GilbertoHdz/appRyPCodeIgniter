@@ -43,6 +43,7 @@ $route['login'] = "login_ci";
 $route['login/logout'] = "login_ci/logout";
 
 $route['inicio'] = "home";
+$route['home/getDetalle'] = "home/get_detalle";
 
 $route['admin'] = "usuario_ci";
 $route['admin/agregar']    = "usuario_ci/mult_user";
@@ -62,8 +63,9 @@ $route['promedio_grupo'] = "promgrupo_ci";
 $route['promedio_grupo/GetPromedioGeneral'] = "promgrupo_ci/getPromedioGeneral";
 
 $route['ejecutivo_general'] = "ejegen_ci";
-$route['ejecutivo_detalle'] = "ejedet_ci";
 
+$route['ejecutivo_detalle'] = "ejedet_ci";
+$route['ejecutivo_detalle/getDetalle'] = "ejedet_ci/get_Detalle";
 
 $route['404_override'] = '';
 

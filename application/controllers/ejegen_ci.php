@@ -6,7 +6,8 @@ class Ejegen_ci extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		//Do your magic here
+		$this->load->model('ejecutivo_model');
+		$this->load->model('promedio_model');
 	}
 
 	public function index()
@@ -18,7 +19,10 @@ class Ejegen_ci extends CI_Controller {
 		$data = array('title' => 'Ejecutivo', 'sub_title' => 'Ejecutivo General');
 		$this->load->view('templates/header', $data);
 
-		$this->load->view('ejecutivo/general');
+		$cursos = $this->promedio_model->getCursos()->result();
+		$data = array('cursos' => $cursos);
+
+		$this->load->view('ejecutivo/general', $data);
 
 		$this->load->view('templates/footer');
 	}

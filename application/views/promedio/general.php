@@ -1,8 +1,6 @@
 <script type="text/javascript">
 
 	$( document ).ready(function() {
-	    //console.log( "ready!" );
-	    //ejecutar_ajax();
 	    $('[id$=ddlCursos]').change(function () {
 		    var result = $(this).val();
 
@@ -13,7 +11,6 @@
 
     function getItemsCombo() {
         var ids_items = $(':checkbox:checked').map(function () { return this.value.split('_')[2]; }).get().join(',');
-            //console.log(ids_items);
         getPromedioGeneral(ids_items);
     }
 
@@ -36,6 +33,7 @@
     }
 
     function llenarBody (argument) {
+        var table = $("[id$=tbPromedioGeneral] tbody tr").remove();
         var table = $("[id$=tbPromedioGeneral] tbody");
         $.each(argument, function (idx, data) {
             var bgc = "<tr style='background-color: #f1f1f1;' >";

@@ -53,10 +53,6 @@ div.dataTables_wrapper {
     left: 0;
 }
 
-#spinningTextG > body{
-	background: #000;
-}
-
 .spinningTextG{
 	color:rgb(0,0,0);
 	font-family:Arial;
