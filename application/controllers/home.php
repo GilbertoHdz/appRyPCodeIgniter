@@ -32,10 +32,9 @@ class Home extends CI_Controller {
 
 	public function get_ajax()
 	{
-		$city  = $_POST['city'];
 		$name  = $_POST['name'];
 
-		$result = $this->informacion_model->ajaxUsuario($city, $name)->result();
+		$result = $this->informacion_model->ajaxUsuario($name)->result();
 
 		echo json_encode($result);
 	}

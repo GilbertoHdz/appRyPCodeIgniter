@@ -6,6 +6,8 @@
 	margin-top: 5px;
 }
 
+.ui-autocomplete { background:#CCC; }
+
 </style>
 
 <script type="text/javascript">
@@ -17,7 +19,7 @@
                 	type: 'POST',
                     url: "<?php echo site_url('home/get_ajax')?>",
                     dataType: "json",
-                    data: { name: request.term, city: 'Xalapa' },
+                    data: { name: request.term},
                     success: function(data) {
 	                    response($.map(data, function(item) {
 		                    var nombre = new String(item.nombre);
@@ -85,8 +87,6 @@
         $('[id$=lblAvance]').text(lblAvance + ' %');
 
     }
-
-	
 </script>
 
 <div class="row">

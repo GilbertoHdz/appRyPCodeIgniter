@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = "http://localhost:8085/appRyP/";
+$config['base_url'] = "http://localhost:8085/sirul/";
 
 /*
 |--------------------------------------------------------------------------

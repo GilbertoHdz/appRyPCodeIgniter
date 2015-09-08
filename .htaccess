@@ -3,9 +3,9 @@
 
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.*)$ /appRyP/index.php/$1 [L]
+	RewriteRule ^(.*)$ /sirul/index.php/$1 [L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>
-	ErrorDocument 404 /appRyP/index.php
+	ErrorDocument 404 /sirul/index.php
 </IfModule>

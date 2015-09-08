@@ -50,7 +50,6 @@ $route['admin/agregar']    = "usuario_ci/mult_user";
 $route['admin/usuario']    = "usuario_ci/getUsuario";
 $route['admin/eliminar']   = "usuario_ci/eliminar_user";
 
-
 $route['apertura_general'] = "apergen_ci";
 $route['apertura_detalle'] = "apertdet_ci";
 $route['insignias'] = "insignias_ci";
@@ -66,6 +65,12 @@ $route['ejecutivo_general'] = "ejegen_ci";
 
 $route['ejecutivo_detalle'] = "ejedet_ci";
 $route['ejecutivo_detalle/getDetalle'] = "ejedet_ci/get_Detalle";
+
+
+$route['diplomas'] = "pdf_ci";
+$route['diplomas/getDiploma'] = "pdf_ci/get_Diploma";
+
+
 
 $route['404_override'] = '';
 

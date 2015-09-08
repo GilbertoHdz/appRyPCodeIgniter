@@ -8,14 +8,14 @@ class Informacion_model extends CI_Model {
 		return $this->db->get('mdl_user');
 	}
 
-	public function ajaxUsuario($city, $name)
+	public function ajaxUsuario($name)
 	{
 		$query = "
 			SELECT DISTINCT MU.id, CONCAT(MU.firstname, ' ', MU.lastname) nombre
 			FROM mdl_user MU
 			INNER JOIN mdl_grade_grades MGG ON (MU.id = MGG.userid)
 			WHERE CONCAT(MU.firstname, ' ', MU.lastname) LIKE '%" . $name . "%'
-			LIMIT 20;
+			LIMIT 10;
 		";
 
 		$consulta = $this->db->query($query);

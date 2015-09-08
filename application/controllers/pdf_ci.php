@@ -6,9 +6,7 @@ class Pdf_ci extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        //cargamos la libreria html2pdf
         $this->load->library('html2pdf');
-        //cargamos el modelo pdf_model
         $this->load->model('personal_model');
     }
  
@@ -22,26 +20,59 @@ class Pdf_ci extends CI_Controller
     }
 
 
-    public function index2($id = '')
+    public function index()
     {
-
-        $data = array('title' => 'Home');
+        $data = array('title' => 'Diplomas');
         $this->load->view('templates/header', $data);
 
-        $fila = $this->personal_model->getUsuario($id);
+        $fila = $this->personal_model->getAllUsuarios()->result();
 
         //print($fila->Title);
         $data = array('contenido' => $fila);
-        $this->load->view('show', $data);
+        $this->load->view('diplomas', $data);
 
         $this->load->view('templates/footer');
     }
 
 
- 
-    public function index($id = '')
+    public function send_diploma()
     {
-    
+        $item = $_POST['termino'];
+
+        if (isset($_POST['id'])) {
+            $this->personal_model->reEnvio($_POST['id'], $item);
+        }else{
+            $this->personal_model->addEnvio($item);
+        }
+    }
+
+ 
+    public function get_Diploma()
+    {
+        $config = array();
+        $config['useragent']           = "CodeIgniter";
+        //$config['mailpath']            = "/usr/bin/sendmail"; // or "/usr/sbin/sendmail"
+        $config['protocol']            = "smtp";
+        $config['smtp_host']           = "ssl://smtp.googlemail.com";
+        $config['smtp_port']           = "465";
+
+        $config['smtp_user']           = "killer.krazydevil@gmail.com";
+        $config['smtp_pass']           = "Velero1406";
+
+        $config['mailtype'] = 'html';
+        $config['charset']  = 'utf-8';
+        $config['newline']  = "\r\n";
+        $config['wordwrap'] = TRUE;
+
+
+
+        $this->load->library('email');
+        $this->email->initialize($config);
+        $this->load->helper('path');
+
+
+        $id = $_POST['id'];
+        
         //establecemos la carpeta en la que queremos guardar los pdfs,
         //si no existen las creamos y damos permisos
         $this->createFolder();
@@ -50,7 +81,7 @@ class Pdf_ci extends CI_Controller
         $this->html2pdf->folder('./files/pdfs/');
         
         //establecemos el nombre del archivo
-        $this->html2pdf->filename('test.pdf');
+        $this->html2pdf->filename('Diploma.pdf');
         
         //establecemos el tipo de papel
         $this->html2pdf->paper('a4', 'portrait');
@@ -58,6 +89,7 @@ class Pdf_ci extends CI_Controller
         //datos que queremos enviar a la vista, lo mismo de siempre
         
         $fila = $this->personal_model->getUsuario($id);
+
         $data = array(
             'title'     => 'Datos personal en pdf',
             'contenido' => $fila
@@ -69,9 +101,33 @@ class Pdf_ci extends CI_Controller
         $this->html2pdf->html(utf8_decode($this->load->view('pdf', $data, true)));
         
         //si el pdf se guarda correctamente lo mostramos en pantalla
-        if($this->html2pdf->create('save')) 
+        if($this->html2pdf->create('save'))
         {
-            $this->show();
+            $path = base_url("files/pdfs/Diploma.pdf");
+            //$this->show();
+
+            $this->email->from('killer.krazydevil@gmail.com', 'Test From');
+            $this->email->to('ghernandez.9002@gmail.com'); 
+            
+            $this->email->subject('Email PDF Test');
+            $this->email->message('Testing the email a freshly created PDF');    
+ 
+            //$this->email->attach($path);
+            $path = set_realpath('files/pdfs/Diploma.pdf');
+            $this->email->attach($path);
+
+            if ($this->email->send()) 
+            {
+                echo "Your Email has been sent successfully... !!";
+            }
+            else
+            {
+                echo $this->email->print_debugger();
+            }
+
+            
+            //echo $path;
+            //echo $this->email->print_debugger();
         }
     }
 
@@ -84,9 +140,9 @@ class Pdf_ci extends CI_Controller
         if(is_dir("./files/pdfs"))
         {
             //ruta completa al archivo
-            $route = base_url("files/pdfs/test.pdf"); 
+            $route = base_url("files/pdfs/Diploma.pdf"); 
             //nombre del archivo
-            $filename = "test.pdf"; 
+            $filename = "Diploma.pdf"; 
             //si existe el archivo empezamos la descarga del pdf
             if(file_exists("./files/pdfs/".$filename))
             {
@@ -108,8 +164,8 @@ class Pdf_ci extends CI_Controller
     {
         if(is_dir("./files/pdfs"))
         {
-            $filename = "test.pdf"; 
-            $route = base_url("files/pdfs/test.pdf"); 
+            $filename = "Diploma.pdf"; 
+            $route = base_url("files/pdfs/Diploma.pdf"); 
             if(file_exists("./files/pdfs/".$filename))
             {
                 header('Content-type: application/pdf'); 
@@ -131,7 +187,7 @@ class Pdf_ci extends CI_Controller
         $this->html2pdf->folder('./files/pdfs/');
         
         //establecemos el nombre del archivo
-        $this->html2pdf->filename('test.pdf');
+        $this->html2pdf->filename('Diploma.pdf');
         
         //establecemos el tipo de papel
         $this->html2pdf->paper('a4', 'portrait');

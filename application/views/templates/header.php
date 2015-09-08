@@ -72,11 +72,10 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ejecutivo<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php base_url() ?>ejecutivo_general">General</a></li>
-            <li role="separator" class="divider"></li>
             <li><a href="<?php base_url() ?>ejecutivo_detalle">Detalle</a></li>
           </ul>
         </li>
+        <li><a href="<?php base_url() ?>diplomas">Diplomas</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
