@@ -84,47 +84,108 @@ class Pdf_ci extends CI_Controller
         $this->html2pdf->filename('Diploma.pdf');
         
         //establecemos el tipo de papel
-        $this->html2pdf->paper('a4', 'portrait');
+        $this->html2pdf->paper('Letter', 'landscape');
         
         //datos que queremos enviar a la vista, lo mismo de siempre
         
         $fila = $this->personal_model->getUsuario($id);
 
+        $imgPDF = set_realpath('vendor/img') . 'Ambientes4.jpg';
+
         $data = array(
             'title'     => 'Datos personal en pdf',
-            'contenido' => $fila
+            'contenido' => $fila,
+            'imag' => $imgPDF
         );
         
 
         //hacemos que coja la vista como datos a imprimir
         //importante utf8_decode para mostrar bien las tildes, ñ y demás
         $this->html2pdf->html(utf8_decode($this->load->view('pdf', $data, true)));
+
         
         //si el pdf se guarda correctamente lo mostramos en pantalla
         if($this->html2pdf->create('save'))
         {
-            $path = base_url("files/pdfs/Diploma.pdf");
-            //$this->show();
 
             $this->email->from('killer.krazydevil@gmail.com', 'Test From');
-            $this->email->to('ghernandez.9002@gmail.com'); 
+            $this->email->to('ghernandez.9002@gmail.com');
             
             $this->email->subject('Email PDF Test');
-            $this->email->message('Testing the email a freshly created PDF');    
- 
-            //$this->email->attach($path);
-            $path = set_realpath('files/pdfs/Diploma.pdf');
-            $this->email->attach($path);
 
-            if ($this->email->send()) 
+            $this->email->message("<div style='width: 50% 50%;' align='center'>
+                                    <table width='100%' border='0' cellspacing='0' cellpadding='0'>
+                                        <tr>
+                                        <td align='center' valign='top' style=''>
+                                            <table width='600' border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td width='20' align='left' valign='top' 
+                                                        style='background-color:#F5F5F5;'>&nbsp;</td>
+                                                    <td align='center' valign='top' 
+                                                        style='background-color:#F5F5F5; color:#000000; font-family:Arial, Helvetica, sans-serif; font-size:14px;'><br>
+                                                        <br><br>
+                                                        <div style='color:#030369; font-family:Georgia, Times New Roman, Times, serif; font-size:24px;'>
+                                                            Laboratorio Nacional de la Informatica Avanzada
+                                                            LANIA A.C<br>
+                                                        </div>
+                                                        <br>
+                                                        <div style='color:#000000; font-style: oblique; font-family:Arial, Helvetica, sans-serif; font-size:16px;'>
+                                                            <p><b>De parte de UNETE te felicitamos por </b><br>
+                                                                  haber concluido satisfactoriamente nuestro curso</p>
+                                                        </div>
+                                                        <br>
+                                                        <table width='100%' border='0' cellspacing='0' cellpadding='0'>
+                                                          <tr>
+                                                            <td align='center' valign='middle'>
+                                                                <hr style='height: 3px; background-color:#030369; border: 0 none;'>
+                                                            </td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td height='30' align='center' valign='middle'>
+                                                                <div style='color:#030369; font-style: oblique; font-size:18px; font-family: Comic Sans MS, Cursive;'>Descripción diplomado</div>
+                                                            </td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td align='center' valign='middle'>
+                                                                <hr style='height: 3px; background-color:#030369; border: 0 none;'>
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                        <br>
+                                                        <div style='color:#000000; font-style: oblique; font-family:Arial, Helvetica, sans-serif; font-size:16px;'>
+                                                            <p><b>Te damos un fuerte abrazo!</b><br>
+                                                                  Descarga tu Diploma adjunto</p>
+                                                        </div>
+                                                        <br><br>
+                                                        <div style='color:#000000; font-family:Arial, Helvetica, sans-serif; font-size:14px;'><b>Dirección Lania</b> <br>
+                                                          Contacto <br>
+                                                          Telefono: (123) 456-789 <br>
+                                                          Email: email@email.com <br>
+                                                          Sitio Web: http://www.lania.mx/
+                                                        </div>
+                                                        <br><br>
+                                                    </td>
+                                                    <td width='20' align='left' valign='top' 
+                                                        style='background-color:#F5F5F5;'>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                    </div>");
+
+            //$this->email->attach($path);
+            $path = set_realpath('files/pdfs');
+            $this->email->attach($path . 'Diploma.pdf');
+
+            if ($this->email->send())
             {
-                echo "Your Email has been sent successfully... !!";
+                echo  "Se envio email";
             }
             else
             {
                 echo $this->email->print_debugger();
             }
-
             
             //echo $path;
             //echo $this->email->print_debugger();
@@ -213,7 +274,7 @@ class Pdf_ci extends CI_Controller
             $this->email->to('killer_krazydevil@hotmail.com'); 
             
             $this->email->subject('Email PDF Test');
-            $this->email->message('Testing the email a freshly created PDF');    
+            $this->email->message("Mail");    
  
             $this->email->attach($path);
  
@@ -223,7 +284,8 @@ class Pdf_ci extends CI_Controller
                         
         }
         
-    } 
+    }
+
 }
 /* End of file pdf_ci.php */
 /* Location: ./application/controllers/pdf_ci.php */
