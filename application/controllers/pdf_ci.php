@@ -22,6 +22,10 @@ class Pdf_ci extends CI_Controller
 
     public function index()
     {
+        if (! $this->session->userdata('objSession')) {
+            redirect('login');
+        }
+        
         $data = array('title' => 'Diplomas');
         $this->load->view('templates/header', $data);
 

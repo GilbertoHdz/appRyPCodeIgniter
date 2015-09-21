@@ -107,29 +107,6 @@ function eliminarParametroTabla(idEliminar, id_contenedor, id_tabla, id_ocultoId
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 window.exportarCSV = function (tbName, docName) {
     $('[id$=btnExportar]').button('loading');
     var BOM = "\uFEFF";
@@ -155,3 +132,5 @@ window.exportarCSV = function (tbName, docName) {
     saveAs(blob, docName + date + ".csv");
     $('[id$=btnExportar]').button('reset');
 };
+
+

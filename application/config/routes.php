@@ -70,7 +70,15 @@ $route['ejecutivo_detalle/getDetalle'] = "ejedet_ci/get_Detalle";
 $route['diplomas'] = "pdf_ci";
 $route['diplomas/getDiploma'] = "pdf_ci/get_Diploma";
 
+$route['segdocente'] = "segdocente_ci";
+//$route['segdocente/getSegDocente'] = "segdocente_ci/segDocente_Ajax";
 
+
+$route['diplomas_emitidos'] = "diplomaemitido_ci";
+//$route['diplomas_emitidos/getDataAjax'] = "diplomaemitido_ci/getData_Ajax";
+
+$route['entrega_final'] = "entregafinal_ci";
+//$route['entrega_final/getDataAjax'] = "entregafinal_ci/getData_Ajax";
 
 $route['404_override'] = '';
 

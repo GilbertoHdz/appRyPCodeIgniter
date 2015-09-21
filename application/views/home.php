@@ -4,6 +4,7 @@
 	height: 25px;
 	padding: 5px 10px;
 	margin-top: 5px;
+	width: 250px;
 }
 
 .ui-autocomplete { background:#CCC; }
@@ -11,9 +12,10 @@
 </style>
 
 <script type="text/javascript">
+	
 	$(document).ready(function() {
 
-        $('[id$=tags]').autocomplete({
+        $('[id$=txtAlumno]').autocomplete({
             source: function(request, response) {
                 $.ajax({
                 	type: 'POST',
@@ -23,8 +25,9 @@
                     success: function(data) {
 	                    response($.map(data, function(item) {
 		                    var nombre = new String(item.nombre);
+		                    var email = new String(item.email);
 		                        return {
-		                            label: item.id + ' - ' + nombre,
+		                            label: item.id + ' - ' + email + ' - ' + nombre,
 		                            id: item.id
 		                        };
 		                    }));
@@ -44,7 +47,6 @@
             }
         });
 
-
 	}); //Fin $(document).ready
 
 	function detalle_ajax(idUsuario) {
@@ -61,11 +63,12 @@
 
 
 	function llenarBody (argument) {
-		$('[id$=tags]').val('');
+		$('[id$=txtAlumno]').val('');
     	var table = $("[id$=tbHistorial] tbody tr").remove();
         var table = $("[id$=tbHistorial] tbody");
         var lblDiplomado = "";
         var lblAvance = 0;
+
         $.each(argument, function (idx, data) {
             var bgc = "<tr class='active' >";
             if (idx % 2 == 0) { 
@@ -75,11 +78,10 @@
             lblDiplomado = data.fullname;
             lblAvance += parseFloat(data.avance);
 
-
             var content = bgc.toString() + 
-                                "<td>" + data.actividad + "</td>" + 
-                                "<td>" + data.calificacion + "</td>" + 
-                           "</tr>";
+                    "<td>" + data.actividad + "</td>" + 
+                    "<td>" + data.calificacion + "</td>" + 
+                "</tr>";
             table.append(content);
         });
 
@@ -91,8 +93,8 @@
 
 <div class="row">
 	    <div class="col-xs-3">
-	      <input type="text" class="form-control subClase" id="tags"
-	             placeholder="Buscar por Nombre">
+	      <input type="text" class="form-control subClase" id="txtAlumno"
+	             placeholder="Buscar por Nombre ú Email">
 	    </div>
 </div>
 
@@ -101,17 +103,13 @@
 
 
 <div class="row">
-
-
 	<div class=" col-md-offset-2 col-md-8">
 		<dl>
-			<dt><label for="" >ID - Nombre</label></dt>
+			<dt><label for="" >ID - Email - Nombre</label></dt>
 			<dd><p id="lblNombre"></p></dd>
-
 			<dt><label for="">Diplomado</label></dt>
 			<dd><p id="lblDdiplomado"></p></dd>
-
-			<dt><label for="" >Avance</label></dt>
+			<dt><label for="" >Calificación</label></dt>
 			<dd><p id="lblAvance"></p></dd>
 		</dl>
 	</div>

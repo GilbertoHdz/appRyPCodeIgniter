@@ -11,10 +11,10 @@ class Informacion_model extends CI_Model {
 	public function ajaxUsuario($name)
 	{
 		$query = "
-			SELECT DISTINCT MU.id, CONCAT(MU.firstname, ' ', MU.lastname) nombre
+			SELECT DISTINCT MU.id, CONCAT(MU.firstname, ' ', MU.lastname) nombre, MU.email
 			FROM mdl_user MU
 			INNER JOIN mdl_grade_grades MGG ON (MU.id = MGG.userid)
-			WHERE CONCAT(MU.firstname, ' ', MU.lastname) LIKE '%" . $name . "%'
+			WHERE (CONCAT(MU.firstname, ' ', MU.lastname) LIKE '%". $name ."%' OR MU.email LIKE '%". $name ."%')
 			LIMIT 10;
 		";
 

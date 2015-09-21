@@ -17,6 +17,55 @@
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
+
+            .dropdown-submenu {
+                position: relative;
+            }
+
+            .dropdown-submenu>.dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -1px;
+                -webkit-border-radius: 0 6px 6px 6px;
+                -moz-border-radius: 0 6px 6px;
+                border-radius: 0 6px 6px 6px;
+            }
+
+            .dropdown-submenu:hover>.dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-submenu>a:after {
+                display: block;
+                content: " ";
+                float: right;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                border-width: 5px 0 5px 5px;
+                border-left-color: #ccc;
+                margin-top: 5px;
+                margin-right: -10px;
+            }
+
+            .dropdown-submenu:hover>a:after {
+                border-left-color: #fff;
+            }
+
+            .dropdown-submenu.pull-left {
+                float: none;
+            }
+
+            .dropdown-submenu.pull-left>.dropdown-menu {
+                left: -100%;
+                margin-left: 10px;
+                -webkit-border-radius: 6px 0 6px 6px;
+                -moz-border-radius: 6px 0 6px 6px;
+                border-radius: 6px 0 6px 6px;
+            }
+
         </style>
         
         <link rel="stylesheet" href="<?php base_url() ?>vendor/css/bootstrap-theme.min.css">
@@ -45,37 +94,54 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php base_url() ?>home">RyP</a>
+      <a class="navbar-brand" href="<?php base_url() ?>home">SIRUL</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<?php base_url() ?>home">Home<span class="sr-only">(current)</span></a></li>
-        <li><a href="<?php base_url() ?>insignias">Insignias</a></li>
+
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apertura <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ejecutivo <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php base_url() ?>apertura_general">General</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<?php base_url() ?>apertura_detalle">Detalle</a></li>
+            <li><a href="<?php base_url() ?>insignias">Insignias</a></li>
+            <li class="dropdown-submenu">
+              <a href="#">Apertura</a>
+              <ul class="dropdown-menu">
+                <li><a href="<?php base_url() ?>apertura_general">General</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="<?php base_url() ?>apertura_detalle">Detalle</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a href="#">Ejecutivo</a>
+              <ul class="dropdown-menu">
+                <li><a href="<?php base_url() ?>ejecutivo_detalle">Detalle</a></li>
+              </ul>
+            </li>
+            <li><a href="<?php base_url() ?>diplomas_emitidos">Diplomas Emitidos</a></li>
+            <li><a href="<?php base_url() ?>entrega_final">Entrega Final</a></li>
           </ul>
         </li>
+        
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Promedio <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operativo <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php base_url() ?>promedio_general">General</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<?php base_url() ?>promedio_grupo">Grupo</a></li>
+            <li><a href="<?php base_url() ?>home">Busqueda<span class="sr-only">(current)</span></a></li>
+            <li class="dropdown-submenu">
+              <a href="#">Promedios</a>
+              <ul class="dropdown-menu">
+                <li><a href="<?php base_url() ?>promedio_general">General</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="<?php base_url() ?>promedio_grupo">Grupo</a></li>
+              </ul>
+            </li>
+            <li><a href="<?php base_url() ?>segdocente">Seg. Docente</a></li>
+            <li><a href="<?php base_url() ?>diplomas">Diplomas</a></li>
           </ul>
         </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ejecutivo<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<?php base_url() ?>ejecutivo_detalle">Detalle</a></li>
-          </ul>
-        </li>
-        <li><a href="<?php base_url() ?>diplomas">Diplomas</a></li>
+        
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

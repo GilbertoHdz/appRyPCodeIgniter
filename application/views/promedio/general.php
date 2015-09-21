@@ -79,12 +79,12 @@
 
 <div class="dataTables_wrapper no-footer">
 
-  <button id="btnExportar" data-loading-text="Loading..." class="btn btn-danger btn-xs" onclick="exportarCSV('tbPromedioGeneral', 'PromedioGeneral')">
-    <span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>Exportar CVS
-  </button>
-  <button id="btnConsultar" data-loading-text="Loading..." class="btn btn-info btn-xs" onclick="getItemsCombo();">
-    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Consultar
-  </button>
+    <button id="btnExportar" data-loading-text="Loading..." class="btn btn-danger btn-xs" onclick="exportarCSV('tbPromedioGeneral', 'PromedioGeneral')">
+        <span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>Exportar CVS
+    </button>
+    <button id="btnConsultar" data-loading-text="Loading..." class="btn btn-info btn-xs" onclick="getItemsCombo();">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Consultar
+    </button>
 
 <br><br>
 
@@ -123,6 +123,11 @@
         </td>
     </tr>
 </table>
+
+
+
+<input type="checkbox" name="option1" value="Milk"> Milk<br>
+
 
 
 
