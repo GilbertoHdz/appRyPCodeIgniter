@@ -33,7 +33,7 @@ class Pdf_ci extends CI_Controller
 
         //print($fila->Title);
         //$data = array('contenido' => $fila);
-        $this->load->view('diplomas');
+        $this->load->view('diplomas/diplomas');
 
         $this->load->view('templates/footer');
     }
@@ -94,6 +94,7 @@ class Pdf_ci extends CI_Controller
         
         $fila = $this->personal_model->getUsuario($id);
 
+
         $imgPDF = set_realpath('vendor/img') . 'Ambientes4.jpg';
 
         $data = array(
@@ -105,7 +106,7 @@ class Pdf_ci extends CI_Controller
 
         //hacemos que coja la vista como datos a imprimir
         //importante utf8_decode para mostrar bien las tildes, ñ y demás
-        $this->html2pdf->html(utf8_decode($this->load->view('pdf', $data, true)));
+        $this->html2pdf->html(utf8_decode($this->load->view('diplomas/pdf', $data, true)));
 
         
         //si el pdf se guarda correctamente lo mostramos en pantalla
@@ -194,100 +195,6 @@ class Pdf_ci extends CI_Controller
             //echo $path;
             //echo $this->email->print_debugger();
         }
-    }
-
-
-
-    //funcion que ejecuta la descarga del pdf
-    public function downloadPdf()
-    {
-        //si existe el directorio
-        if(is_dir("./files/pdfs"))
-        {
-            //ruta completa al archivo
-            $route = base_url("files/pdfs/Diploma.pdf"); 
-            //nombre del archivo
-            $filename = "Diploma.pdf"; 
-            //si existe el archivo empezamos la descarga del pdf
-            if(file_exists("./files/pdfs/".$filename))
-            {
-                header("Cache-Control: public"); 
-                header("Content-Description: File Transfer"); 
-                header('Content-disposition: attachment; filename='.basename($route)); 
-                header("Content-Type: application/pdf"); 
-                header("Content-Transfer-Encoding: binary"); 
-                header('Content-Length: '. filesize($route)); 
-                readfile($route);
-            }
-        }    
-    }
- 
- 
-    //esta función muestra el pdf en el navegador siempre que existan
-    //tanto la carpeta como el archivo pdf
-    public function show()
-    {
-        if(is_dir("./files/pdfs"))
-        {
-            $filename = "Diploma.pdf"; 
-            $route = base_url("files/pdfs/Diploma.pdf"); 
-            if(file_exists("./files/pdfs/".$filename))
-            {
-                header('Content-type: application/pdf'); 
-                readfile($route);
-            }
-        }
-    }
-    
-    //función para crear y enviar el pdf por email
-    //ejemplo de la libreria sin modificar
-    public function mail_pdf()
-    {
-        
-        //establecemos la carpeta en la que queremos guardar los pdfs,
-        //si no existen las creamos y damos permisos
-        $this->createFolder();
- 
-        //importante el slash del final o no funcionará correctamente
-        $this->html2pdf->folder('./files/pdfs/');
-        
-        //establecemos el nombre del archivo
-        $this->html2pdf->filename('Diploma.pdf');
-        
-        //establecemos el tipo de papel
-        $this->html2pdf->paper('a4', 'portrait');
-        
-        //datos que queremos enviar a la vista, lo mismo de siempre
-        $data = array(
-            'title' => 'Listado de personal en pdf',
-            'provincias' => $this->pdf_model->getProvincias()
-        );
-        
-        //hacemos que coja la vista como datos a imprimir
-        //importante utf8_decode para mostrar bien las tildes, ñ y demás
-        $this->html2pdf->html(utf8_decode($this->load->view('pdf', $data, true)));
- 
- 
-        //Check that the PDF was created before we send it
-        if($path = $this->html2pdf->create('save')) 
-        {
- 
-            $this->load->library('email');
- 
-            $this->email->from('killer.krazydevil@gmail.com', 'Test Gmail');
-            $this->email->to('killer_krazydevil@hotmail.com'); 
-            
-            $this->email->subject('Email PDF Test');
-            $this->email->message("Mail");    
- 
-            $this->email->attach($path);
- 
-            $this->email->send();
-            
-            echo "El email ha sido enviado correctamente";
-                        
-        }
-        
     }
 
 }

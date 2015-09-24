@@ -137,7 +137,7 @@
               </ul>
             </li>
             <li><a href="<?php base_url() ?>segdocente">Seg. Docente</a></li>
-            <li><a href="<?php base_url() ?>diplomas">Diplomas</a></li>
+            <!--li><a href="<?php base_url() ?>diplomas">Diplomas</a></li-->
           </ul>
         </li>
         
