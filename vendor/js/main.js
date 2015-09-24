@@ -16,7 +16,7 @@ function getItems(ids) {
         url: "promedio_general/GetItemCursos/" + ids.split('_')[1],
         dataType: "json",
         success: function (data) {
-            agregarSubCombo(ids, nombre, data)
+            agregarSubCombo(ids, nombre, data);
         }
     });
 
@@ -106,6 +106,7 @@ function eliminarParametroTabla(idEliminar, id_contenedor, id_tabla, id_ocultoId
         $('[id$=' + id_contenedor + ']').hide();
     }
 }
+
 
 window.exportarCSV = function (tbName, docName) {
     $('[id$=btnExportar]').button('loading');

@@ -15,12 +15,12 @@ class Promgen_ci extends CI_Controller {
 			redirect('login');
 		}
 		
-		$data = array('title' => 'Promedio', 'sub_title' => 'Promedio General');
+		$data = array('title' => 'Promedio General', 'sub_title' => 'Promedio General');
 		$this->load->view('templates/header', $data);
 
 		$cursos = $this->promedio_model->getCursos()->result();
 
-		$data = array('cursos' => $cursos);
+		$data = array('cursos' => json_encode($cursos));
 		$this->load->view('promedio/general', $data);
 
 		$this->load->view('templates/footer');

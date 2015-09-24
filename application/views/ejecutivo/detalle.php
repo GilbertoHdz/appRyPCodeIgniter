@@ -1,16 +1,105 @@
 <script type="text/javascript">
 
 	$( document ).ready(function() {
-	    $('[id$=ddlCursos]').change(function () {
-		    var result = $(this).val();
-		    agregarParametroTabla(result, result, "trContenedorGruposAgregados", "tblGruposAgregados", "hdnIdGrupo");
-		    $('[id$=ddlCursos]').val(-1);
-		});
+
+	    construirGridGrupos('<?php print($cursos) ?>');
+        $("#filtro").hide();
+        $("#ocultarFiltro").hide();
+
 	});
 
+
+    var keyCombos = [];
+    function construirGridGrupos(arg){
+        arg = JSON.parse(arg);
+        var table = $("[id$=gridItems] tbody tr").remove();
+            table = $("[id$=gridItems] tbody");
+
+        $.each(arg, function (idx, data) {
+            var bgc = "<tr style='background-color: #f1f1f1;' >";
+            if (idx % 2 == 0) { bgc = "<tr>"; };
+            var idCompuesto = data.grupo + '_' + data.id_curso;
+            var idParam = "'" + idCompuesto.split(" ")[1] + "'";
+
+            var content =
+                bgc.toString() +
+                    "<td>&nbsp;&nbsp;<span " +
+                        'onclick="setChkSelected(' + idParam + ');">'+
+                        "<input id='combo-" + idCompuesto.split(" ")[1] + "' type='checkbox' name='multiselect_Grupo" + idCompuesto.split(" ")[1] + "' value='" + idCompuesto +"'>&nbsp;&nbsp;" + data.grupo +
+                    "</span></td>" +
+                    "<td> <div id='div-" + idCompuesto.split(" ")[1] + "' style='float:right;'></div></td>" +
+                "</tr>";
+
+            keyCombos.push("combo-" + idCompuesto.split(" ")[1]);
+
+            getItems(idCompuesto);
+            table.append(content);
+        });
+    }
+
+
+    function getItems(ids) {
+        var nombre = ids.split(' ')[0] + ids.split(' ')[1];
+        $.ajax({
+            type: 'POST',
+            url: "promedio_general/GetItemCursos/" + ids.split('_')[1],
+            dataType: "json",
+            success: function (data) {
+                agregarSubCombo(ids, nombre, data);
+            }
+        });
+
+    }
+
+    function agregarSubCombo(ids, nombre, data) {
+        var combo = $("<select></select>").attr("id", nombre).attr("name", nombre).attr("class", 'ddlMultiple').css("width", "225");
+
+        $(data).each(function () {
+            combo.append($("<option>").attr('value', ids.split('_')[0] + '_' + this.id_curso + '_' + this.itemid).text(this.itemname));
+        });
+
+        $("#div-" + ids.split(" ")[1] + "").append(combo);
+        $('.ddlMultiple').multiselect();
+
+        var btn = $("[id$=div-"+ids.split(" ")[1]+"] button");
+                btn.attr({'id': 'btn-'+ids.split(" ")[1]});
+                btn.attr({'disabled': 'true'});
+                btn.css({ "color": "#818181" });
+
+        return true;
+    }
+
+
+    function setChkSelected (arg) {
+        $("#combo-" + arg).change(function(){
+
+            var btn = $("[id$=div-"+arg+"] button");
+            if (this.checked) {
+                btn.prop("disabled", false);
+                btn.css({ "color": "#000000" });
+            } else{
+                btn.attr({'disabled': 'true'});
+                btn.css({ "color": "#818181" });
+            };
+
+        });
+    }
+
     function getItemsCombo() {
-        var ids_items = $(':checkbox:checked').map(function () { return this.value.split('_')[2]; }).get().join(',');
-        getData(ids_items);
+        var selected = [];
+        var ids_items;
+        var termAgregados = "";
+
+        for(var i=0, keys = keyCombos.length; i< keys; i++){ 
+            var idCombo = "#"+keyCombos[i];
+            if($(idCombo).is(":checked")){
+                var nameChk = $(idCombo).attr('name');
+                    ids_items = $("input:checkbox[name="+nameChk+"]:checked").map(function () { return this.value.split('_')[2]; }).get().join(',');
+                    termAgregados += ids_items + ",";
+            }
+        }
+
+        getData(termAgregados.slice(0, -1));
     }
 
 	function getData(items) {
@@ -62,7 +151,24 @@
                                 "<td>" + data.egresados + "</td>" +
                            "</tr>";
             table.append(content);
+
+            $("#filtro").hide();
+            $("#mostrarFiltro").show();
+            $("#ocultarFiltro").hide();
+
         });
+    }
+
+    function filtroOculto (arg) {
+        if (arg) {
+            $("#filtro").show();
+            $("#ocultarFiltro").show();
+            $("#mostrarFiltro").hide();
+        } else{
+            $("#filtro").hide();
+            $("#mostrarFiltro").show();
+            $("#ocultarFiltro").hide();
+        };
     }
 
 </script>
@@ -81,41 +187,29 @@
 
 <br><br>
 
-<table>
-    <tr>
-        <td>
-            <table>
+<button id="mostrarFiltro" data-loading-text="Loading..." class="btn btn-info btn-xs" onclick="filtroOculto(true);">
+        Mostrar Filtro <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+    </button>
+
+    <button id="ocultarFiltro" data-loading-text="Loading..." class="btn btn-info btn-xs" onclick="filtroOculto(false);">
+        Ocultar Filtro <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+    </button>
+
+<div id="filtro">
+    
+    <div class="PromedioGeneral" style="position: relative; overflow: auto; max-height: 40vh; width: 370px">
+        <table id="gridItems" style="width: 350px" class="tg">
+            <thead>
                 <tr>
-                    <td>Seleccionar Cursos:</td>
-                    <td>
-                    	<select name="cursos" id="ddlCursos">
-							<option value="-1">------</option>
-							<?php foreach ($cursos as $fila) { ?>
-								<option value="<?php print($fila->grupo . '_' . $fila->id_curso ) ?>"><?php print($fila->grupo) ?></option>
-							<?php  } ?>	
-						</select>
-                    </td>
+                    <th style="width: 100px; text-align:center;" class="tg-ld5c" >&nbsp;&nbsp;&nbsp;Grupos</th>
+                    <th style="width: 100px; text-align:center;" class="tg-ld5c"  >Items</th>
                 </tr>
-                <tr id="trContenedorGruposAgregados" style="display:none;">
-                    <td class="tdb_etiquetas"></td>
-                    <td colspan="4">
-                        <table id="tblGruposAgregados" style="width: 330px !important;">
-                            <thead>
-                                <tr>
-                                    <th class="TRHead" style="display: none;">idSeleccionados</th>
-                                    <th class="TRHead"><asp:Label ID="lblGrupos" runat="server" Text="GRUPOS AGREGADOS" /></th>
-                                    <th class="TRHead"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
 

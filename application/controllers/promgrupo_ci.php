@@ -15,12 +15,12 @@ class Promgrupo_ci extends CI_Controller {
 			redirect('login');
 		}
 		
-		$data = array('title' => 'Promedio', 'sub_title' => 'Promedio Grupo');
+		$data = array('title' => 'Promedio Grupo', 'sub_title' => 'Promedio Grupo');
 		$this->load->view('templates/header', $data);
 
 		$cursos = $this->promedio_model->getCursos()->result();
 
-		$data = array('cursos' => $cursos);
+		$data = array('cursos' => json_encode($cursos));
 		$this->load->view('promedio/grupo', $data);
 
 		$this->load->view('templates/footer');

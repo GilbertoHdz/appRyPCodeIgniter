@@ -20,7 +20,7 @@ class Ejedet_ci extends CI_Controller {
 		$this->load->view('templates/header', $data);
 
 		$cursos = $this->promedio_model->getCursos()->result();
-		$data = array('cursos' => $cursos);
+		$data = array('cursos' => json_encode($cursos));
 
 		$this->load->view('ejecutivo/detalle', $data);
 

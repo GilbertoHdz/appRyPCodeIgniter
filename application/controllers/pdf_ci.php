@@ -29,11 +29,11 @@ class Pdf_ci extends CI_Controller
         $data = array('title' => 'Diplomas');
         $this->load->view('templates/header', $data);
 
-        $fila = $this->personal_model->getAllUsuarios()->result();
+        //$fila = $this->personal_model->getAllUsuarios()->result();
 
         //print($fila->Title);
-        $data = array('contenido' => $fila);
-        $this->load->view('diplomas', $data);
+        //$data = array('contenido' => $fila);
+        $this->load->view('diplomas');
 
         $this->load->view('templates/footer');
     }
