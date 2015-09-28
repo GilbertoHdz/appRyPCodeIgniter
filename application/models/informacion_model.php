@@ -28,13 +28,13 @@ class Informacion_model extends CI_Model {
 	public function detalle_alumno($id='')
 	{
 		$query = "
-			SELECT MGG.userid, ROUND(IFNULL(MGG.finalgrade, 0), 2) calificacion, MGG.itemid, MGI.courseid
+			SELECT MGG.userid, ROUND(COALESCE(MGG.finalgrade, 0), 2) calificacion, MGG.itemid, MGI.courseid
 				, MGI.itemname actividad, MGI.aggregationcoef, MGI.categoryid, MC.fullname
-			    , ROUND((IFNULL(MGG.finalgrade, 0) * MGI.aggregationcoef), 2) avance
+			    , ROUND((COALESCE(MGG.finalgrade, 0) * MGI.aggregationcoef), 2) avance
 			FROM mdl_grade_grades MGG
 			INNER JOIN mdl_grade_items MGI ON (MGG.itemid = MGI.id)
 			INNER JOIN mdl_course MC ON (MGI.courseid = MC.id)
-			WHERE MGG.userid = " . $id . " AND MGI.courseid NOT IN (2, 3, 11) AND MGI.categoryid <> 'null' 
+			WHERE MGG.userid = " . $id . " AND MGI.courseid NOT IN (2, 3, 11) AND MGI.categoryid <> null 
 			ORDER BY MGG.userid, MGI.courseid, MGG.itemid;
 		";
 

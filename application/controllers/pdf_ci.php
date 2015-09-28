@@ -25,8 +25,8 @@ class Pdf_ci extends CI_Controller
         if (! $this->session->userdata('objSession')) {
             redirect('login');
         }
-        
-        $data = array('title' => 'Diplomas');
+
+        $data = array('title' => 'Envio Diplomas');
         $this->load->view('templates/header', $data);
 
         //$fila = $this->personal_model->getAllUsuarios()->result();
@@ -68,19 +68,16 @@ class Pdf_ci extends CI_Controller
         $config['newline']  = "\r\n";
         $config['wordwrap'] = TRUE;
 
-
-
         $this->load->library('email');
         $this->email->initialize($config);
         $this->load->helper('path');
-
 
         $id = $_POST['id'];
         
         //establecemos la carpeta en la que queremos guardar los pdfs,
         //si no existen las creamos y damos permisos
         $this->createFolder();
- 
+
         //importante el slash del final o no funcionará correctamente
         $this->html2pdf->folder('./files/pdfs/');
         
@@ -94,20 +91,20 @@ class Pdf_ci extends CI_Controller
         
         $fila = $this->personal_model->getUsuario($id);
 
-
-        $imgPDF = set_realpath('vendor/img') . 'Ambientes4.jpg';
+        $imgPDF = set_realpath('vendor/img') . 'ambientesA.png';
+        $imgDet = set_realpath('vendor/img') . 'ambientesB.png';
 
         $data = array(
             'title'     => 'Datos personal en pdf',
             'contenido' => $fila,
-            'imag' => $imgPDF
+            'imag' => $imgPDF,
+            'imagDet' => $imgDet
+
         );
         
-
         //hacemos que coja la vista como datos a imprimir
         //importante utf8_decode para mostrar bien las tildes, ñ y demás
         $this->html2pdf->html(utf8_decode($this->load->view('diplomas/pdf', $data, true)));
-
         
         //si el pdf se guarda correctamente lo mostramos en pantalla
         if($this->html2pdf->create('save'))

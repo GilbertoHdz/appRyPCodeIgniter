@@ -9,7 +9,13 @@
         #imagen {
             background-image: url('<?php print($imag) ?>');
             background-repeat: no-repeat;
-            height: 44.2em;
+            height: 44em;
+        }
+
+        #detImg {
+            background-image: url('<?php print($imagDet) ?>');
+            background-repeat: no-repeat;
+            height: 44em;
         }
 
         h2 {
@@ -22,21 +28,39 @@
             padding: 5px 0 6px 0;
             text-align: center;
         }
+
     </style>
 </head>
 <body>
 
 <div id="imagen" >
-
-    <p><?php print($imag) ?></p>
-    <h2>Test Pdf.</h2>
-
-    <h2><?php print($contenido->username) ?></h2>
-    <br>
     <h3><?php print($contenido->firstname) ?></h3>
     <h4><?php print($contenido->lastname) ?></h4>
-
 </div>
+
+<!--div id="detImg">
+    <table>
+        <th>
+            <tr>Numero</tr>
+            <tr>Tema</tr>
+            <tr>Horas</tr>
+            <tr>Calificación</tr>
+        </th>
+    </table>
+    <tbody>
+        <td>
+            <tr>1</tr>
+            <tr>El pensamiento matemático y la tecnología móvil</tr>
+            <tr>40</tr>
+            <tr>00.00</tr>
+        </td>
+    </tbody>
+    <br>
+
+    <h3>Promedio General: </h3>
+
+
+</div-->
 
 </body>
 </html>

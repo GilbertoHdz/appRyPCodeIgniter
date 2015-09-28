@@ -1,3 +1,16 @@
+<style type="text/css" media="screen">
+
+.subClase {
+    height: 25px;
+    padding: 5px 10px;
+    margin-top: 5px;
+    width: 250px;
+}
+
+.ui-autocomplete { background:#CCC; }
+
+</style>
+
 <script type="text/javascript">
 
 	function getPdf(idUsuario) {
@@ -6,6 +19,7 @@
 	}
     
     $(document).ready(function() {
+
         $('[id$=txtAlumno]').autocomplete({
             source: function(request, response) {
                 $.ajax({
@@ -37,6 +51,7 @@
                 }
             }
         });
+
     });
 
     function detalle_ajax(idUsuario) {
@@ -85,16 +100,6 @@
 
 <h3>Diploma</h3>
 
-<br>
-<a href="<?php base_url() ?>files/pdfs/Diploma.pdf" target="_blank">Show</a>
-<br>
-
-<button onclick="getPdf(90)">
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
-</button>
-
-<br>
-
 <div class="row">
     <div class="col-xs-3">
       <input type="text" class="form-control subClase" id="txtAlumno"
@@ -122,4 +127,11 @@
 </button>
 
 
+
+<br><br><br>
+<a href="<?php base_url() ?>files/pdfs/Diploma.pdf" target="_blank">Show</a>
+<br>
+<button onclick="getPdf(90)">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
+</button>
 

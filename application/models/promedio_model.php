@@ -21,7 +21,7 @@ class Promedio_model extends CI_Model {
 	public function getPromedio($item)
 	{
 		$query = "
-					SELECT VAD.Usuario, VAD.Contrasenia, VAD.Convenio, VAD.NombComp
+			SELECT VAD.Usuario, VAD.Contrasenia, VAD.Convenio, VAD.NombComp
 			, VAD.CorreoE, VAD.phone1, VAD.phone2, VAD.Estado
 			, VAD.ClvCentroTrabajo, VAD.CentroTrabajo, VAD.NvlCentroTrabajo
 			, VAD.DiasSinIngresar, VAD.IngresoPlataforma, VAD.EstPago, VAD.Grupo
@@ -40,7 +40,10 @@ class Promedio_model extends CI_Model {
 			INNER JOIN mdl_user_info_data ID ON (ID.userid = VAD.userid AND ID.fieldid = 1)
 			WHERE VAA.itemid IN (" . $item . ")
 			GROUP BY VAD.userid, VAA.courseid, VAD.DiasSinIngresar, VAD.Grupo
-				, VAD.Diplomado, VAD.FechaApertura
+					, VAD.Diplomado, VAD.FechaApertura, VAD.Usuario,  VAD.Contrasenia
+					, VAD.Convenio, VAD.NombComp, VAD.CorreoE, VAD.phone1, VAD.phone2
+					, VAD.Estado, VAD.ClvCentroTrabajo, VAD.CentroTrabajo, VAD.NvlCentroTrabajo
+					, VAD.IngresoPlataforma, VAD.EstPago, VAD.GrupoApertura, ID.data
 			";
 
 		$consulta = $this->db->query($query);

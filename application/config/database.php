@@ -48,11 +48,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost:3307';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'admin';
+$db['default']['hostname'] = 'localhost:5432';
+$db['default']['username'] = 'postgres';
+$db['default']['password'] = '';
 $db['default']['database'] = 'diplomado';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

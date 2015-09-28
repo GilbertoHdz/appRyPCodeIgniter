@@ -21,7 +21,7 @@ class Ejecutivo_model extends CI_Model {
 	{
 		$query = "
 				SELECT MG.courseid, MG.id groupid, SUBSTRING(name, 1, 7) grupo, MG.name grupo_pre, QS.convenio,
-				    SUM(QS.total) AS ttInscritos, FROM_UNIXTIME(MC.startdate) AS FechaApertura, MC.fullname AS diplomado
+				    SUM(QS.total) AS ttInscritos, to_timestamp(MC.startdate) AS FechaApertura, MC.fullname AS diplomado
 				 FROM mdl_groups MG
 				 INNER JOIN mdl_course MC ON (MC.id = MG.courseid)
 				 INNER JOIN (SELECT COUNT(GM.userid) total, GM.groupid, UID.data AS convenio
@@ -30,7 +30,7 @@ class Ejecutivo_model extends CI_Model {
 				            GROUP BY GM.groupid , UID.data
 				            ) QS ON (QS.groupid = MG.id)
 				 WHERE MG.courseid NOT IN (1 , 4, 11) AND MG.courseid = " . $item ."
-				 GROUP BY MG.courseid, QS.Convenio, MG.id;
+				 GROUP BY MG.courseid, QS.Convenio, MG.id, FechaApertura, diplomado;
 			";
 
 		$consulta = $this->db->query($query);
@@ -65,7 +65,7 @@ class Ejecutivo_model extends CI_Model {
 			 INNER JOIN mdl_user_info_data ID ON (ID.userid = MGG.userid AND ID.fieldid  = 1)
 			 INNER JOIN mdl_user_info_data IDP ON (IDP.userid = MGG.userid AND IDP.fieldid  = 22)
 			 WHERE MGI.courseid = ". $curso ." AND MGG.itemid IN (" . $item . ")
-			 GROUP BY MGG.userid
+			 GROUP BY MGG.userid, ID.data, IDP.data, MGI.courseid
 			 ORDER BY courseid, tipo_prefijo;
 		";
 
